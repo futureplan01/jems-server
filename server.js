@@ -15,23 +15,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use('/',routes);
 
-
-const server = require('http').createServer(app);
-
-const io = require("socket.io").listen(server);
-
-io.on("connection", (client)=>{
-    console.log("a user is connected");
-    client.on("server", msg =>{
-        client.broadcast.emit("user", msg);
-        console.log(msg);
-    });
-    client.on("disconnect", ()=>{
-        console.log("user has disconnected");
-    });
-
-})
-server.listen(port,()=>{
+app.listen(port,()=>{
     console.log("Server running on http://localhost:" + port);
 })
 
